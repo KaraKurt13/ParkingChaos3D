@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI
 
         private void Update()
         {
-            if (GameEngine.IsGameActive)
+            if (GameEngine.IsGamePaused)
                 UpdateTimer();
         }
 

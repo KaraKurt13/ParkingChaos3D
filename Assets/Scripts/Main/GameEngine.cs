@@ -9,17 +9,26 @@ namespace Assets.Scripts.Main
     {
         public GameInterfaceComponent GameInterfaceComponent;
 
-        public bool IsGameActive = false;
+        public bool IsGamePaused = false, IsGameStarted = false;
+
+        public bool IsGameActive()
+        {
+            return !IsGamePaused && IsGameStarted;
+        }
 
         public void PauseGame()
         {
-            IsGameActive = false;
-            GameInterfaceComponent.ShowPauseMenuPanel();
+            IsGamePaused = true;
+        }
+
+        public void ResumeGame()
+        {
+            IsGamePaused = false;
         }
 
         private void Start()
         {
-            
+            InitializeGame();
         }
 
         private void InitializeGame()
