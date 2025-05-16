@@ -9,7 +9,14 @@ namespace Assets.Scripts.Main
     {
         public GameInterfaceComponent GameInterfaceComponent;
 
+        public LevelGenerator LevelGenerator;
+
         public bool IsGamePaused = false, IsGameStarted = false;
+
+        private void Start()
+        {
+            InitializeGame();
+        }
 
         public bool IsGameActive()
         {
@@ -26,13 +33,23 @@ namespace Assets.Scripts.Main
             IsGamePaused = false;
         }
 
-        private void Start()
+        public void OnGameCompletition()
         {
-            InitializeGame();
+
+        }
+
+        public void InializeNextLevel()
+        {
+            LevelGenerator.ResetLevel();
+            var carsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + 6;
+            LevelGenerator.GenerateLevel(carsCount);
         }
 
         private void InitializeGame()
         {
+            Debug.Log(PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount));
+            var carsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + 6;
+            LevelGenerator.GenerateLevel(carsCount);
             // Initialize gamestatemaching
             // Generate level
             // Enter 
