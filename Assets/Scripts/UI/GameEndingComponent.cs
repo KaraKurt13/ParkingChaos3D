@@ -15,7 +15,13 @@ namespace Assets.Scripts.UI
 
         public void DrawWinScreen()
         {
-            // draw
+            var time = Engine.ResultTime;
+            var convertedTime = TimeHelper.TicksToSeconds(time);
+            var minutes = (int)(convertedTime / 60);
+            var seconds = (int)(convertedTime % 60);
+            var totalCoins = PlayerPrefs.GetInt(Constants.PrefsKey_CurrencyAmount);
+            _resultText.text = $"Time: {minutes:D2}:{seconds:D2}. Earned 5$! (Total: {totalCoins})$";
+
             ShowWinScreen();
         }
 
