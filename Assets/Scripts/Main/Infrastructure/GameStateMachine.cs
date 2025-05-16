@@ -11,7 +11,7 @@ namespace Assets.Scripts.Main.Infrastructure
             AddState(typeof(GameInitializationState), new GameInitializationState(this, engine.LevelGenerator));
             AddState(typeof(GamePreparingState), new GamePreparingState(this, engine));
             AddState(typeof(GameLoopState), new GameLoopState(this, engine));
-            AddState(typeof(GameEndingState), new GameEndingState());
+            AddState(typeof(GameEndingState), new GameEndingState(engine));
         }
     }
 }

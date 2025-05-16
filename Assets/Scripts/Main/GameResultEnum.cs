@@ -6,6 +6,7 @@ namespace Assets.Scripts.Main
 {
     public enum GameResultEnum
     {
+        None,
         Win,
         Lose
     }

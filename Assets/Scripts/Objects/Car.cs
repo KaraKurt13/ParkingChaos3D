@@ -2,6 +2,7 @@ using Assets.Scripts.Main;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.Objects
 {
@@ -16,6 +17,8 @@ namespace Assets.Scripts.Objects
         public bool IsSelected { get; private set; } = false;
 
         public LineRenderer Line;
+
+        public UnityAction OnLeavingArea, OnHit;
 
         private bool _isMoving = false;
 
@@ -49,6 +52,8 @@ namespace Assets.Scripts.Objects
 
         public void ActivateMovement()
         {
+            TriggerCollider.enabled = false;
+            TriggerCollider.enabled = true;
             _isMoving = true;
         }
 
@@ -67,14 +72,30 @@ namespace Assets.Scripts.Objects
         {
             Transform.position = _spawnPosition;
             DeactivateMovement();
+            ClearSelection();
             gameObject.SetActive(true);
         }
 
-        private float _moveStep = 0.1f;
+        private float _moveStep = 0.3f;
 
         private void MoveTick()
         {
             Transform.position += _moveDirection * _moveStep;
+        }
+
+        private void OnBecameInvisible()
+        {
+            OnLeavingArea?.Invoke();
+            Deactivate();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<Car>(out var car))
+            {
+                OnHit?.Invoke();
+                DeactivateMovement();
+            }
         }
     }
 }

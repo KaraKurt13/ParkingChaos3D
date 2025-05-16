@@ -16,7 +16,14 @@ namespace Assets.Scripts.Main
 
         public bool IsGamePaused = false, IsGameStarted = false;
 
+        public GameResultEnum GameResultEnum;
+        public int ResultTime;
+
         private GameStateMachine _gameStateMachine;
+
+        private int _basicCarsCount = 6;
+
+        public int CarsCount;
 
         private void Start()
         {
@@ -38,6 +45,14 @@ namespace Assets.Scripts.Main
             return !IsGamePaused && IsGameStarted;
         }
 
+        public void RestartLevel()
+        {
+            OnLevelEnd();
+            GameInterfaceComponent.ResetInterface();
+            LevelGenerator.ResetLevel();
+            _gameStateMachine.Enter<GamePreparingState>();
+        }
+
         public void PauseGame()
         {
             IsGamePaused = true;
@@ -46,6 +61,21 @@ namespace Assets.Scripts.Main
         public void ResumeGame()
         {
             IsGamePaused = false;
+        }
+
+        public void OnLevelLose()
+        {
+            OnLevelEnd();
+            GameResultEnum = GameResultEnum.Lose;
+            _gameStateMachine.Enter<GameEndingState>();
+        }
+
+        public void OnLevelWin(int ticksCount)
+        {
+            OnLevelEnd();
+            GameResultEnum = GameResultEnum.Win;
+            ResultTime = ticksCount;
+            _gameStateMachine.Enter<GameEndingState>();
         }
 
         public void OnLevelStart()
@@ -61,18 +91,18 @@ namespace Assets.Scripts.Main
 
         public void InializeNextLevel()
         {
-            LevelGenerator.ResetLevel();
-            var carsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + 6;
-            LevelGenerator.GenerateLevel(carsCount);
+            GameInterfaceComponent.ResetInterface();
+            LevelGenerator.ClearLevel();
+            CarsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + _basicCarsCount;
+            LevelGenerator.GenerateLevel();
         }
 
         private void InitializeGame()
         {
             ResetAll();
+            CarsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + _basicCarsCount;
             _gameStateMachine = new GameStateMachine(this);
             _gameStateMachine.Enter<GameInitializationState>();
-            // Initialize gamestatemaching
-            // Enter 
         }
 
         private void ResetAll()

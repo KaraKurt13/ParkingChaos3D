@@ -10,8 +10,6 @@ namespace Assets.Scripts.Main.Infrastructure
 
         private GameStateMachine _gameStateMachine;
 
-        private int _basicCarsCount = 6;
-
         public GameInitializationState(GameStateMachine gameStateMachine, LevelGenerator levelGenerator)
         {
             _levelGenerator = levelGenerator;
@@ -20,8 +18,7 @@ namespace Assets.Scripts.Main.Infrastructure
 
         public void Enter()
         {
-            var carsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + _basicCarsCount;
-            _levelGenerator.GenerateLevel(carsCount);
+            _levelGenerator.GenerateLevel();
             _gameStateMachine.Enter<GamePreparingState>();
         }
 

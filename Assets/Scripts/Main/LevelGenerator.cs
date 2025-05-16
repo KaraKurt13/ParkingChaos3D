@@ -1,6 +1,7 @@
 using Assets.Scripts.Objects;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Main
@@ -9,28 +10,34 @@ namespace Assets.Scripts.Main
     {
         public GameEngine Engine;
 
+        public List<Car> Cars = new();
+
         [SerializeField] private GameObject _carPrefab;
         [SerializeField] private Transform _spawnCenter;
 
-        private List<Car> _cars = new();
-
         public void ResetLevel()
         {
-            foreach (var car in _cars)
+            foreach (var car in Cars)
                 car.ResetCar();
+        }
+
+        public void ClearLevel()
+        {
+            foreach (var car in Cars.ToList())
+                Destroy(car.gameObject);
+
+            Cars.Clear();
         }
 
         private int _gridSizeX = 12, _gridSizeY = 7;
         private float _spacing = 4.5f;
-        private bool[,] _gridOccupied;
 
-        public void GenerateLevel(int carsCount)
+        public void GenerateLevel()
         {
-            _gridOccupied = new bool[_gridSizeX, _gridSizeY];
             var halfX = _gridSizeX / 2;
             var halfY = _gridSizeY / 2;
             var gridPositions = new List<Vector3>();
-            carsCount = Mathf.Clamp(carsCount, 5, halfX * halfY);
+            var carsCount = Mathf.Clamp(Engine.CarsCount, 5, halfX * halfY);
 
             for (int x = -halfX; x <= halfX; x++)
             {
@@ -47,7 +54,7 @@ namespace Assets.Scripts.Main
                 Vector3.right
                 };
             var rotationOffset = Quaternion.Euler(0f, -90f, 0f);
-            _cars = new();
+            Cars = new();
 
             for (int i = 0; i < carsCount; i++)
             {
@@ -59,7 +66,7 @@ namespace Assets.Scripts.Main
                 var car = Instantiate(_carPrefab, pos, rotation).GetComponent<Car>();
                 car.Initialize(pos, dir);
                 car.Engine = Engine;
-                _cars.Add(car);
+                Cars.Add(car);
                 gridPositions.Remove(pos);
             }
         }

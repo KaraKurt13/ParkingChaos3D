@@ -28,21 +28,55 @@ namespace Assets.Scripts.Main.Infrastructure
         {
             _gameInterfaceComponent.ShowTopPanel();
             _gameTicks = 0;
+            _remainingCars = _engine.CarsCount;
+            _playerHealth = 3;
+            foreach (var car in _engine.LevelGenerator.Cars)
+            {
+                car.OnHit += OnCarHit;
+                car.OnLeavingArea += OnCarLeavingArea;
+            }
             _engine.OnLevelStart();
         }
 
         public void Exit()
         {
+            _gameTicks = 0;
+            foreach (var car in _engine.LevelGenerator.Cars)
+            {
+                car.OnHit -= OnCarHit;
+                car.OnLeavingArea -= OnCarLeavingArea;
+            }
         }
 
-        private int _gameTicks = 0;
+        private int _gameTicks = 0, _playerHealth, _remainingCars;
+
+        private void OnCarLeavingArea()
+        {
+            _remainingCars--;
+            Debug.Log($"Car left! Remaining cars: {_remainingCars}");
+            if (_remainingCars == 0)
+                _engine.OnLevelWin(_gameTicks);
+        }
+
+        private bool _receivedDamaged = false;
+
+        private void OnCarHit()
+        {
+            if (_receivedDamaged) return;
+
+            _playerHealth--;
+            _receivedDamaged = true;
+            Debug.Log($"Car hit! Remaining health: {_playerHealth}");
+            if (_playerHealth <= 0)
+                _engine.OnLevelLose();
+        }
 
         public void PhysicsUpdate()
         {
             if (_engine.IsGameActive())
             {
+                _receivedDamaged = false;
                 _gameTicks++;
-                _gameInterfaceComponent.UpdateTimer(_gameTicks);
             }
         }
 
@@ -50,6 +84,11 @@ namespace Assets.Scripts.Main.Infrastructure
 
         public void Update()
         {
+            if (!_engine.IsGameActive())
+                return;
+
+            _gameInterfaceComponent.UpdateStatistics(_gameTicks, _playerHealth, _remainingCars);
+
             if (_inputController.IsMouseClicked())
             {
                 if (_inputController.TryGetClickedCar(out var car))
@@ -60,6 +99,7 @@ namespace Assets.Scripts.Main.Infrastructure
                         {
                             car.ActivateMovement();
                             _selectedCar.ClearSelection();
+                            _selectedCar = null;
                         }
                         else
                         {

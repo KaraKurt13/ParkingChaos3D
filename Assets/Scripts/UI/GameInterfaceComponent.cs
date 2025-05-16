@@ -16,6 +16,10 @@ namespace Assets.Scripts.UI
 
         public void ResetInterface()
         {
+            GameEndingComponent.HideAll();
+            HideClickWaitingPanel();
+            HidePauseMenuPanel();
+            HideTopPanel();
             var levelNum = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount);
             _levelNumberText.text = $"Level {levelNum}";
             _timerText.text = "0:00";
@@ -41,12 +45,6 @@ namespace Assets.Scripts.UI
             _clickWaitingPanel.SetActive(false);
         }
 
-        public void ShowEndingScreen()
-        {
-            GameEndingComponent.DrawEndingResults();
-            HideTopPanel();
-        }
-
         [SerializeField] private GameObject _topPanel;
         [SerializeField] private TextMeshProUGUI _timerText, _levelNumberText;
 
@@ -60,9 +58,12 @@ namespace Assets.Scripts.UI
             _topPanel.SetActive(false);
         }
 
-        public void UpdateTimer(int gameTicks)
+        public void UpdateStatistics(int gameTicks, int playerHealth, int remainingCars)
         {
-
+            var convertedTime = TimeHelper.TicksToSeconds(gameTicks);
+            var minutes = (int)(convertedTime / 60);
+            var seconds = (int)(convertedTime % 60);
+            _timerText.text = $"{minutes:D2}:{seconds:D2}";
         }
     }
 }
