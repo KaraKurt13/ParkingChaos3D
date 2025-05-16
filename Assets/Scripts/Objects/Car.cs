@@ -1,3 +1,4 @@
+using Assets.Scripts.Main;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,15 @@ namespace Assets.Scripts.Objects
 {
     public class Car : MonoBehaviour
     {
+        public GameEngine Engine;
+
         public Transform Transform;
 
         public BoxCollider TriggerCollider;
+
+        public bool IsSelected { get; private set; } = false;
+
+        public LineRenderer Line;
 
         private bool _isMoving = false;
 
@@ -18,14 +25,26 @@ namespace Assets.Scripts.Objects
 
         private void FixedUpdate()
         {
-            if (_isMoving)
+            if (_isMoving && Engine.IsGameActive())
                 MoveTick();
         }
 
-        public void Initialize(Vector3 position)
+        public void Select()
+        {
+            IsSelected = true;
+            Line.enabled = true;
+        }
+
+        public void ClearSelection()
+        {
+            IsSelected = false;
+            Line.enabled = false;
+        }
+
+        public void Initialize(Vector3 position, Vector3 moveDirection)
         {
             _spawnPosition = position;
-            _moveDirection = Vector3.forward;
+            _moveDirection = moveDirection;
         }
 
         public void ActivateMovement()
@@ -51,9 +70,11 @@ namespace Assets.Scripts.Objects
             gameObject.SetActive(true);
         }
 
+        private float _moveStep = 0.1f;
+
         private void MoveTick()
         {
-
+            Transform.position += _moveDirection * _moveStep;
         }
     }
 }

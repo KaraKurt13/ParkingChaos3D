@@ -1,3 +1,4 @@
+using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,24 +7,39 @@ namespace Assets.Scripts.Main.Infrastructure
 {
     public class GamePreparingState : IGameState
     {
+        private GameInterfaceComponent _gameInterfaceComponent;
+
+        private GameStateMachine _gameStateMachine;
+
+        private InputController _inputController;
+
+        public GamePreparingState(GameStateMachine gameStateMachine, GameEngine engine)
+        {
+            _gameStateMachine = gameStateMachine;
+            _gameInterfaceComponent = engine.GameInterfaceComponent;
+            _inputController = engine.InputController;
+        }
+
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            _gameInterfaceComponent.ShowClickWaitingPanel();
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            _gameInterfaceComponent.HideClickWaitingPanel();
         }
 
         public void PhysicsUpdate()
         {
-            throw new System.NotImplementedException();
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
+            if (_inputController.IsMouseClicked())
+            {
+                _gameStateMachine.Enter<GameLoopState>();
+            }
         }
     }
 }

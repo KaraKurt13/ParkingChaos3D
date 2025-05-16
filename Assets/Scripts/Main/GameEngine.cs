@@ -1,3 +1,4 @@
+using Assets.Scripts.Main.Infrastructure;
 using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +12,25 @@ namespace Assets.Scripts.Main
 
         public LevelGenerator LevelGenerator;
 
+        public InputController InputController;
+
         public bool IsGamePaused = false, IsGameStarted = false;
+
+        private GameStateMachine _gameStateMachine;
 
         private void Start()
         {
             InitializeGame();
+        }
+
+        private void Update()
+        {
+            _gameStateMachine.UpdateState();
+        }
+
+        private void FixedUpdate()
+        {
+            _gameStateMachine.UpdateStatePhysics();
         }
 
         public bool IsGameActive()
@@ -33,9 +48,15 @@ namespace Assets.Scripts.Main
             IsGamePaused = false;
         }
 
-        public void OnGameCompletition()
+        public void OnLevelStart()
         {
+            IsGameStarted = true;
+        }
 
+        public void OnLevelEnd()
+        {
+            ResumeGame();
+            IsGameStarted = false;
         }
 
         public void InializeNextLevel()
@@ -47,12 +68,17 @@ namespace Assets.Scripts.Main
 
         private void InitializeGame()
         {
-            Debug.Log(PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount));
-            var carsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + 6;
-            LevelGenerator.GenerateLevel(carsCount);
+            ResetAll();
+            _gameStateMachine = new GameStateMachine(this);
+            _gameStateMachine.Enter<GameInitializationState>();
             // Initialize gamestatemaching
-            // Generate level
             // Enter 
+        }
+
+        private void ResetAll()
+        {
+            GameInterfaceComponent.ResetInterface();
+            LevelGenerator.ResetLevel();
         }
     }
 }

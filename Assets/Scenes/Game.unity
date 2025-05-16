@@ -656,6 +656,50 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3931218022035125853, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
   m_PrefabInstance: {fileID: 337559489}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &362783270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 362783271}
+  - component: {fileID: 362783272}
+  m_Layer: 0
+  m_Name: InputController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &362783271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362783270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 898622953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &362783272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362783270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af7f2459d1ec5443b7ed68d1259561b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410310995
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &410310996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1512,6 +1556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameInterfaceComponent: {fileID: 1869604818}
   LevelGenerator: {fileID: 1620691987}
+  InputController: {fileID: 362783272}
   IsGamePaused: 0
   IsGameStarted: 0
 --- !u!4 &898622953
@@ -1529,6 +1574,7 @@ Transform:
   m_Children:
   - {fileID: 1620691986}
   - {fileID: 1587088076}
+  - {fileID: 362783271}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948051376
@@ -2736,6 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db8caf337c295b46a07465015af0eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Engine: {fileID: 898622952}
   _carPrefab: {fileID: 4221078666932076847, guid: 81ef01e8a117edc478a7321c230e1e23, type: 3}
   _spawnCenter: {fileID: 1143018945}
 --- !u!1 &1639811340

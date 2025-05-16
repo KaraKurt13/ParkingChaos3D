@@ -6,10 +6,11 @@ namespace Assets.Scripts.Main.Infrastructure
 {
     public class GameStateMachine : BaseStateMachine<IGameState>
     {
-        public GameStateMachine()
+        public GameStateMachine(GameEngine engine)
         {
-            AddState(typeof(GamePreparingState), new GamePreparingState());
-            AddState(typeof(GameLoopState), new GameLoopState());
+            AddState(typeof(GameInitializationState), new GameInitializationState(this, engine.LevelGenerator));
+            AddState(typeof(GamePreparingState), new GamePreparingState(this, engine));
+            AddState(typeof(GameLoopState), new GameLoopState(this, engine));
             AddState(typeof(GameEndingState), new GameEndingState());
         }
     }

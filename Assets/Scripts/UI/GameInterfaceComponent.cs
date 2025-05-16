@@ -14,10 +14,11 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private GameObject _clickWaitingPanel, _pauseMenuPanel;
 
-        private void Update()
+        public void ResetInterface()
         {
-            if (GameEngine.IsGamePaused)
-                UpdateTimer();
+            var levelNum = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount);
+            _levelNumberText.text = $"Level {levelNum}";
+            _timerText.text = "0:00";
         }
 
         public void ShowPauseMenuPanel()
@@ -49,17 +50,17 @@ namespace Assets.Scripts.UI
         [SerializeField] private GameObject _topPanel;
         [SerializeField] private TextMeshProUGUI _timerText, _levelNumberText;
 
-        private void ShowTopPanel()
+        public void ShowTopPanel()
         {
             _topPanel.SetActive(true);
         }
 
-        private void HideTopPanel()
+        public void HideTopPanel()
         {
             _topPanel.SetActive(false);
         }
 
-        private void UpdateTimer()
+        public void UpdateTimer(int gameTicks)
         {
 
         }
