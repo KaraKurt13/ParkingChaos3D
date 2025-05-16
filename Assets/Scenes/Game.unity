@@ -814,7 +814,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &444499784
 MeshRenderer:
@@ -3434,7 +3434,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 85, y: 85, z: 85}
+  m_Size: {x: 80, y: 90, z: 60}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &2118381551
 Transform:
@@ -3533,10 +3533,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 444499786}
   - {fileID: 898622953}
   - {fileID: 1869604817}
-  - {fileID: 480955024}
-  - {fileID: 21132306}
   - {fileID: 1143018945}
   - {fileID: 2118381551}
+  - {fileID: 444499786}
+  - {fileID: 21132306}
+  - {fileID: 480955024}
