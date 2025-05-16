@@ -235,7 +235,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1587088077}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1587088077}
     - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
@@ -243,7 +251,15 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMainMenuScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: LoadMainMenuScene
       objectReference: {fileID: 0}
     - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
@@ -251,7 +267,15 @@ PrefabInstance:
       value: Assets.Scripts.Main.SceneController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Main.SceneController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 553211060993103709, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2929513789184927909, guid: 26cdb85c75351ac4ba85a91c96cc9eed, type: 3}
@@ -1806,7 +1830,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 40
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -3374,6 +3398,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095939535}
   m_CullTransparentMesh: 1
+--- !u!1 &2118381549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118381551}
+  - component: {fileID: 2118381550}
+  m_Layer: 8
+  m_Name: GameArea
+  m_TagString: GameArea
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2118381550
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118381549}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 85, y: 85, z: 85}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2118381551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118381549}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118974495
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,3 +3539,4 @@ SceneRoots:
   - {fileID: 480955024}
   - {fileID: 21132306}
   - {fileID: 1143018945}
+  - {fileID: 2118381551}

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Main.Infrastructure
             currentLevel++;
             currentCoins += 5;
 
-            if (bestTime > time)
+            if (bestTime == 0 || bestTime > time)
                 PlayerPrefs.SetInt(Constants.PrefsKey_BestTime, time);
             PlayerPrefs.SetInt(Constants.PrefsKey_CurrencyAmount, currentCoins);
             PlayerPrefs.SetInt(Constants.PrefsKey_LevelCount, currentLevel);

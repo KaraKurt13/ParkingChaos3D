@@ -18,12 +18,22 @@ namespace Assets.Scripts.UI
 
         private void UpdateTimeRecord()
         {
-
+            var time = PlayerPrefs.GetInt(Constants.PrefsKey_BestTime);
+            if (time == 0)
+            {
+                _timeRecordText.text = $"No best time";
+                return;
+            }
+            var convertedTime = TimeHelper.TicksToSeconds(time);
+            var minutes = (int)(convertedTime / 60);
+            var seconds = (int)(convertedTime % 60);
+            _timeRecordText.text = $"Best time: {minutes:D2}:{seconds:D2}";
         }
 
         private void UpdateCurrency()
         {
-            
+            var currency = PlayerPrefs.GetInt(Constants.PrefsKey_CurrencyAmount);
+            _currencyText.text = $"{currency}$";
         }
 
         public void ShowMainPanel()

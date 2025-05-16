@@ -12,7 +12,7 @@ namespace Assets.Scripts.Objects
 
         public Transform Transform;
 
-        public BoxCollider TriggerCollider;
+        public BoxCollider CarTrigger, HitTrigger;
 
         public bool IsSelected { get; private set; } = false;
 
@@ -52,13 +52,13 @@ namespace Assets.Scripts.Objects
 
         public void ActivateMovement()
         {
-            TriggerCollider.enabled = false;
-            TriggerCollider.enabled = true;
+            HitTrigger.enabled = true;
             _isMoving = true;
         }
 
         public void DeactivateMovement()
         {
+            HitTrigger.enabled = false;
             _isMoving = false;
         }
 
@@ -83,10 +83,13 @@ namespace Assets.Scripts.Objects
             Transform.position += _moveDirection * _moveStep;
         }
 
-        private void OnBecameInvisible()
+        private void OnTriggerExit(Collider other)
         {
-            OnLeavingArea?.Invoke();
-            Deactivate();
+            if (other.CompareTag("GameArea"))
+            {
+                OnLeavingArea?.Invoke();
+                Deactivate();
+            }
         }
 
         private void OnTriggerEnter(Collider other)

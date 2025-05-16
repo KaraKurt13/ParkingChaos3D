@@ -94,7 +94,7 @@ namespace Assets.Scripts.Main
             GameInterfaceComponent.ResetInterface();
             LevelGenerator.ClearLevel();
             CarsCount = PlayerPrefs.GetInt(Constants.PrefsKey_LevelCount) + _basicCarsCount;
-            LevelGenerator.GenerateLevel();
+            _gameStateMachine.Enter<GameInitializationState>();
         }
 
         private void InitializeGame()
